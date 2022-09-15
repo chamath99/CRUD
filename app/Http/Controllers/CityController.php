@@ -14,6 +14,11 @@ class CityController extends Controller
      */
     public function index()
     {
+        // return view('city.index');
+
+        //retrive 
+        $city=City::get();
+        return view('city.index')->with(compact('city'));
         //
     }
 
@@ -24,7 +29,7 @@ class CityController extends Controller
      */
     public function create()
     {
-        //
+        return view('city.create');
     }
 
     /**
@@ -35,7 +40,14 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'code'=>'required',
+            'name'=>'required',
+        ]);
+        City::create($request->all());
+        //after create redirect home
+        return redirect()->route('city.index')->with('add','Record Added');
+        // return view('city.index')->with('add','Record Added');
     }
 
     /**
