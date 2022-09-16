@@ -11,8 +11,21 @@
         </div>
     </div>
 </div>
+
 @if($msg = Session::get('add'))
    <div class="alert alert-success">
+        <p>{{$msg}}</p>
+   </div>
+@endif
+
+@if($msg = Session::get('edit'))
+   <div class="alert alert-success">
+        <p>{{$msg}}</p>
+   </div>
+@endif
+
+@if($msg = Session::get('delete'))
+   <div class="alert alert-danger">
         <p>{{$msg}}</p>
    </div>
 @endif
@@ -32,8 +45,12 @@
         <td>{{$data->code}}</td>
         <td>{{$data->name}}</td>
         <td>
-            <a href="" class="btn btn-primary">Edit</a>
-            <a href="" class="btn btn-danger">Delete</a>
+            <form action="{{route('city.destroy',$data->id)}}" method="POST">
+            <a href="{{route('city.edit',$data->id)}}" class="btn btn-primary">Edit</a>
+              @csrf
+              @method('DELETE')  
+                <button type="" class="btn btn-danger">Delete</button>
+            </form>   
         </td>
     </tr>
     @endforeach
